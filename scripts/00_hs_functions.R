@@ -1,5 +1,4 @@
 ## functions for calculating heat stress for different livestock species
-## j.mutua, CIAT
 
 # heat stress index function 
 # y=relative humidity; x=maximum temperature
