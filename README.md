@@ -1,2 +1,2 @@
 # Heat Stress Mapping
-code for heat stress mapping with R
+Code for heat stress mapping with R
