@@ -38,24 +38,24 @@ for (rcp in rcpLs){
     breaks <- 17
     zvalues <- seq(min(minValue(var_stk_msk)), max(maxValue(var_stk_msk)), length.out = breaks) # Define limits
     colors <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
-    # myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("HS alert to HS alert",
-    #                                                                                           "HS alert to HS danger",
-    #                                                                                           "HS alert to HS emergency",
-    #                                                                                           "HS alert to No HS",
-    #                                                                                           "HS danger to HS alert",
-    #                                                                                           "HS danger to HS danger",
-    #                                                                                           "HS danger to HS emergency",
-    #                                                                                           "HS danger to No HS",
-    #                                                                                           "HS emergency to HS alert",
-    #                                                                                           "HS emergency to HS danger",
-    #                                                                                           "HS emergency to HS emergency",
-    #                                                                                           "HS emergency to No HS",
-    #                                                                                           "No HS to HS alert",
-    #                                                                                           "No HS to HS danger",
-    #                                                                                           "No HS to HS emergency",
-    #                                                                                           "No HS to No HS"), 
-    #                                                                   cex=0.85))
-    # myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"), cex=1.1))
+    myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("HS alert to HS alert",
+                                                                                              "HS alert to HS danger",
+                                                                                              "HS alert to HS emergency",
+                                                                                              "HS alert to No HS",
+                                                                                              "HS danger to HS alert",
+                                                                                              "HS danger to HS danger",
+                                                                                              "HS danger to HS emergency",
+                                                                                              "HS danger to No HS",
+                                                                                              "HS emergency to HS alert",
+                                                                                              "HS emergency to HS danger",
+                                                                                              "HS emergency to HS emergency",
+                                                                                              "HS emergency to No HS",
+                                                                                              "No HS to HS alert",
+                                                                                              "No HS to HS danger",
+                                                                                              "No HS to HS emergency",
+                                                                                              "No HS to No HS"),
+                                                                      cex=1.1))
+    #myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"), cex=1.1))
 
     plot <- setZ(var_stk_msk, id)
     names(plot) <- id
@@ -74,7 +74,7 @@ for (rcp in rcpLs){
                     xlab="", 
                     ylab="", 
                     par.settings = myTheme, 
-                    colorkey = FALSE,
+                    colorkey = myColorkey,
                     margin=FALSE
                     )
           + layer(sp.polygons(water_mask, col="blue", lwd=0.125))

@@ -34,7 +34,8 @@ for (rcp in rcpLs){
     cat("Processing : ",  rcp, period, "\n")
     
     var_stk <- stack(paste0(iDir, "/", rcp, "/", period, "/", var, "_", 1:12, ".tif"))
-    var_stk[is.na(var_stk)] <- 1
+    var_stk[is.na(var_stk)] <- 0
+    var_stk <- 1-var_stk
     var_stk_msk <- mask(crop(var_stk*100, ug_mask), ug_mask)
     
     # breaks <- 10
