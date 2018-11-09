@@ -3,18 +3,21 @@
 # Author: J.Mutua, CIAT
 # Last modified: 18/09/2017
 
-# set variables
-cDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/data/climate_data/current/worldclim_v1.4_1KM"
-oDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping"
-
-# load functions
-source("D:/OneDrive - CGIAR/_GitHub/heat_stress_mapping/_scripts/00_hs_functions.R")
+#clear your work space
+rm(list = ls(all = TRUE))
 
 # load packages
 .packages = c("raster", "rgdal")
 .inst <- .packages %in% installed.packages()
 if(length(.packages[!.inst]) > 0) install.packages(.packages[!.inst])
 lapply(.packages, require, character.only=TRUE)
+
+# load functions
+source("D:/OneDrive - CGIAR/_GitHub/heat-stress-mapping/scripts/00_hs_functions.R")
+
+# set variables
+cDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/data/climate_data/current/worldclim_v1.4_1KM"
+oDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping"
 
 # create output folder
 if(!dir.exists(paste0(oDir, '/outputs/raster_current', sep=''))) {dir.create(paste0(oDir, '/outputs/raster_current', sep=''))}

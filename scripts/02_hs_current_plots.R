@@ -52,8 +52,8 @@ print(levelplot(plot, at = zvalues, scales = list(draw=FALSE),
                 par.settings = myTheme, 
                 colorkey = myColorkey,
                 margin=FALSE) 
-      + layer(sp.polygons(water_mask, col="blue", lwd=0.125))
-      + layer(sp.polygons(ug_mask, col="black", lwd=0.25)))
+      + latticeExtra::layer(sp.polygons(water_mask, col="blue", lwd=0.125))
+      + latticeExtra::layer(sp.polygons(ug_mask, col="black", lwd=0.25)))
 
 dev.off()
 

@@ -11,6 +11,9 @@ rm(list = ls(all = TRUE))
 if(length(.packages[!.inst]) > 0) install.packages(.packages[!.inst])
 lapply(.packages, require, character.only=TRUE)
 
+# load functions
+source("D:/OneDrive - CGIAR/_GitHub/heat-stress-mapping/scripts/00_hs_functions.R")
+
 # set some variables
 cDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/outputs/raster_current"
 fDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/outputs/uncertainties_future"
@@ -19,11 +22,8 @@ var = "hs"
 rcpLs <- c("rcp26", "rcp45", "rcp60", "rcp85")
 periodLs <- c("2020_2049", "2040_2069")
 
-# load functions
-source("D:/OneDrive - CGIAR/_GitHub/heat_stress_mapping/_scripts/00_hs_functions.R")
 
 # plot by month
-
 for (rcp in rcpLs){
   
   for (period in periodLs){
@@ -45,7 +45,7 @@ for (rcp in rcpLs){
       y = future[[w]]
       
       h <- y
-      h[] <- hs.change(x,y)
+      h[] <- pig.index.change(x,y)
       
       writeRaster(h, filename = paste0(oDir, "/", rcp, "/", period, "/cng_", w,".tiff"), format = "GTiff", overwrite=TRUE)
       }

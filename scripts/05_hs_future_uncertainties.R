@@ -1,4 +1,3 @@
-# Create stack, then a function to calculate per pixel the mode and the entropy
 # Uncertainty metrics for a given stack (likely a set of previously loaded GCMs)
 # Author: John Mutua, CIAT
 # Last modified: 24/10/2017
@@ -11,6 +10,9 @@ rm(list = ls(all = TRUE))
 .inst <- .packages %in% installed.packages()
 if(length(.packages[!.inst]) > 0) install.packages(.packages[!.inst])
 lapply(.packages, require, character.only=TRUE)
+
+# load functions
+source("D:/OneDrive - CGIAR/_GitHub/heat-stress-mapping/scripts/00_hs_functions.R")
 
 # set variables
 cDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/outputs/raster_future"

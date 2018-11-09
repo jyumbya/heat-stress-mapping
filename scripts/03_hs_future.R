@@ -1,7 +1,9 @@
 # Calculate future heat stress
-# Based on Heat Stress Index for grow-finish swine, chart by IOWA State University
 # Author: John Mutua, CIAT
 # Last modified: 18/09/2017
+
+# clear your work space
+rm(list = ls(all = TRUE))
 
 # load packages
 .packages = c("rgdal","raster", "gtools")

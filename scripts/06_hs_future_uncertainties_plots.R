@@ -11,6 +11,7 @@ rm(list = ls(all = TRUE))
 if(length(.packages[!.inst]) > 0) install.packages(.packages[!.inst])
 lapply(.packages, require, character.only=TRUE)
 
+# set variables
 iDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/outputs/uncertainties_future"
 oDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping"
 rcpLs <- c("rcp26", "rcp45", "rcp60", "rcp85")

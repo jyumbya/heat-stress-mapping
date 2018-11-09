@@ -11,6 +11,10 @@ rm(list = ls(all = TRUE))
 if(length(.packages[!.inst]) > 0) install.packages(.packages[!.inst])
 lapply(.packages, require, character.only=TRUE)
 
+# load functions
+source("D:/OneDrive - CGIAR/_GitHub/heat-stress-mapping/scripts/00_hs_functions.R")
+
+# set variables
 iDir <- "D:/OneDrive - CGIAR/Projects/2018/L&E_Heat_Stress_Mapping/outputs/uncertainties_future"
 rcpLs <- c("rcp26", "rcp45", "rcp60", "rcp85")
 periodLs <- c("2020_2049", "2040_2069")
@@ -51,7 +55,8 @@ for (rcp in rcpLs){
     tiff(paste0(pDir, "/", rcp, "_", period, "_", "hs", ".tif"), width=1000, height=1200, pointsize=8, compression="lzw", res=100)
     
     print(levelplot(plot, 
-                    at = zvalues, scales = list(draw=FALSE), 
+                    at = zvalues, 
+                    scales = list(draw=FALSE), 
                     layout=c(3, 4), 
                     xlab="", 
                     ylab="", 
@@ -59,8 +64,8 @@ for (rcp in rcpLs){
                     colorkey = myColorkey,
                     margin=FALSE)
           + layer(sp.polygons(water_mask, col="blue", lwd=0.125))
-          + layer(sp.polygons(ug_mask, col="black", lwd=0.25))
-          )
+          + layer(sp.polygons(ug_mask, col="black", lwd=0.25)))
+    
     dev.off()
     
     cat(paste("Processed : ", rcp, period, "\n"))
