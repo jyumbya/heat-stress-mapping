@@ -11,28 +11,28 @@ pig.index<-function(x,y) {
   for(i in 1:length(x)){
     z[i] <- if(is.na(x[i])|is.na(y[i])){
       NA
-    }else if(y[i] < 45 & x[i] >= 31.0 | 
-             y[i] >= 45 & y[i] < 55 & x[i] >= 30.0 | 
-             y[i] >= 55 & y[i] < 75 & x[i] >= 29.0 | 
-             y[i] >= 75 & y[i] < 90 & x[i] >= 29.0 | 
+    }else if(y[i] < 45 & x[i] >= 31.0 |
+             y[i] >= 45 & y[i] < 55 & x[i] >= 30.0 |
+             y[i] >= 55 & y[i] < 75 & x[i] >= 29.0 |
+             y[i] >= 75 & y[i] < 90 & x[i] >= 29.0 |
              y[i] >= 90 & x[i] >= 27.0){
       1
-    }else if(y[i] < 45 & x[i] >= 28.0 & x[i] < 31.0 | 
-             y[i] >= 45 & y[i] < 55 & x[i] >= 27.0 & x[i] < 30.0 | 
-             y[i] >= 55 & y[i] < 75 & x[i] >= 27.0 & x[i] < 29.0 | 
-             y[i] >= 75 & y[i] < 90 & x[i] >= 26.0 & x[i] < 29.0 | 
+    }else if(y[i] < 45 & x[i] >= 28.0 & x[i] < 31.0 |
+             y[i] >= 45 & y[i] < 55 & x[i] >= 27.0 & x[i] < 30.0 |
+             y[i] >= 55 & y[i] < 75 & x[i] >= 27.0 & x[i] < 29.0 |
+             y[i] >= 75 & y[i] < 90 & x[i] >= 26.0 & x[i] < 29.0 |
              y[i] >= 90 & x[i] >= 26.0 & x[i] < 27.0){
       2
-    }else if(y[i] < 45 & x[i] >= 26.0 & x[i] < 28.0 | 
-             y[i] >= 45 & y[i] < 55 & x[i] >= 25.0 & x[i] < 27.0 | 
-             y[i] >= 55 & y[i] < 75 & x[i] >= 25.0 & x[i] < 27.0 | 
-             y[i] >= 75 & y[i] < 90 & x[i] >= 24.0 & x[i] < 26.0 | 
+    }else if(y[i] < 45 & x[i] >= 26.0 & x[i] < 28.0 |
+             y[i] >= 45 & y[i] < 55 & x[i] >= 25.0 & x[i] < 27.0 |
+             y[i] >= 55 & y[i] < 75 & x[i] >= 25.0 & x[i] < 27.0 |
+             y[i] >= 75 & y[i] < 90 & x[i] >= 24.0 & x[i] < 26.0 |
              y[i] >= 90 & x[i] >= 24.0 & x[i] < 26.0){
       3
-    }else if(y[i] < 45 & x[i] < 26.0 | 
-             y[i] >= 45 & y[i] < 55 & x[i] < 25.0 | 
-             y[i] >= 55 & y[i] < 75 & x[i] < 25.0 | 
-             y[i] >= 75 & y[i] < 90 & x[i] < 24.0 | 
+    }else if(y[i] < 45 & x[i] < 26.0 |
+             y[i] >= 45 & y[i] < 55 & x[i] < 25.0 |
+             y[i] >= 55 & y[i] < 75 & x[i] < 25.0 |
+             y[i] >= 75 & y[i] < 90 & x[i] < 24.0 |
              y[i] >= 90 & x[i] < 24.0){
       4}else{NA}
   }
@@ -67,6 +67,26 @@ pig.index.change <- function(x,y) {
     else{NA}
     }
   return(z)
+}
+
+#pig index change matrix
+pig.index.change.matrix <- function(x,y){
+  
+  #assign colors
+  cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
+            "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
+  
+  #create matrix
+  m4<- matrix(1:16, nrow=4, ncol=4, byrow=TRUE)
+  
+  rownames(m4) <- c("Alert","Danger","Emergency","No") 
+  colnames(m4) <- c("Alert","Danger","Emergency","No") 
+  
+  image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Future", ylab="Current")
+  axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T); axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
+  box()
+  # title(main = "Heat Stress Change Transitions", font.main = 4)
+  
 }
 
 #calculate change area
