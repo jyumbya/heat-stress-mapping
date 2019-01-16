@@ -79,11 +79,12 @@ pig.index.change.matrix <- function(x,y){
   #create matrix
   m4<- matrix(1:16, nrow=4, ncol=4, byrow=TRUE)
   
-  rownames(m4) <- c("Alert","Danger","Emergency","No") 
-  colnames(m4) <- c("Alert","Danger","Emergency","No") 
+  rownames(m4) <- c("Alert","Danger","Emergency","Normal") 
+  colnames(m4) <- c("Alert","Danger","Emergency","Normal") 
   
   image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Future", ylab="Current")
-  axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T); axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
+  axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T)
+  axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
   box()
   # title(main = "Heat Stress Change Transitions", font.main = 4)
   
@@ -193,6 +194,29 @@ cattle.index.change.stats <- function(x){
   return(b)
   
 }
+
+#cattle heat stress change area
+cattle.index.current.stats <- function(x){
+  
+  #initial 5 classes spread out
+  classes <- 1:5
+  
+  #calculate areas
+  b <- getValues(area(x, weights=FALSE))
+  
+  #aggregate areas by group and sum them up
+  b <- aggregate(b, by=list(getValues(x)), sum, na.rm=T)
+  b <- as.data.frame(b)
+  
+  #change column names
+  names(b) <- c("CLASS","AREA")
+  
+  #bring in classes with NAs
+  b <- merge(data.frame(CLASS = classes), b, by='CLASS', all.x=T)
+  
+  return(b)
+  
+}
   
 
 # calculate everything per pixel
@@ -200,6 +224,13 @@ categorical.mode <- function(pixel){
   mode.pixel <- DescTools::Mode(x = pixel)[1]
   return(mode.pixel)
 }
+
+agreement.pixel <- function(pixel) {
+  x <- pixel[1]
+  y <- pixel[2:length(pixel)]
+  length(y[y == x])
+}
+
 
 categorical.entropy <- function(pixel){
   entropy.pixel <- DescTools::Entropy(x = table(pixel), base = exp(1))/DescTools::Entropy(x = rep(length(pixel)/length(table(pixel)), length(table(pixel))), base = exp(1))

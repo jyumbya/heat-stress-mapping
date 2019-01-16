@@ -19,7 +19,7 @@ rcpLs <- c("rcp26", "rcp45", "rcp60", "rcp85")
 periodLs <- c("2020_2049", "2040_2069")
 var <- "hs"
 livestockLs <- c("pig", "cattle")
-analysisLs <- c("current", "future", "uncertainties", "changes")
+analysisLs <- c("current", "future", "uncertainties", "changes", "agreement")
 id <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 
 # import country and water mask
@@ -163,6 +163,51 @@ for (rcp in rcpLs){
     
   }
 
+}
+
+# agreement plots plots
+for (rcp in rcpLs){
+  
+  livestock <- livestockLs[1]
+  
+  for (period in periodLs){
+    
+    cat("Plotting", analysisLs[5], ":", rcp, period, "\n")
+    
+    if (!file.exists(paste0(oDirPlt, "/", analysisLs[5], "_", var, "_", livestock, "_", rcp, "_", period, ".tif", sep="")))
+      
+      # load uncertainties in stack (all years by rcp)
+      hsAg <- stack(paste0(iDir, "/uncertainties/", rcp, "/", period, "/", "agreement_", var, "_", 1:12, ".tif"))
+      hsAg <- mask(crop(hsAg, country_mask), country_mask)
+      
+      zvalues <- seq(0, 100, 10) # Define limits
+      myTheme <- BuRdTheme() # Define squeme of colors
+      myTheme$regions$col=colorRampPalette(c("darkred","red", "yellow", "green", "darkgreen")) # Set new colors
+      
+      plot <- setZ(hsAg, id)
+      names(plot) <- id
+    
+      myTheme$strip.border$col = "white" 
+      myTheme$axis.line$col = 'white'
+    
+      tiff(paste0(oDirPlt, "/", analysisLs[5], "_", var, "_", livestock, "_", rcp, "_", period, ".tif", sep=""), width=1000, height=1200, pointsize=8, compression="lzw", res=100)
+    
+      print(levelplot(plot, 
+                      at = zvalues, 
+                      scales = list(draw=FALSE), 
+                      layout=c(3, 4), 
+                      xlab="", 
+                      ylab="", 
+                      par.settings = myTheme,
+                      colorkey = list(space = "right"),
+                      margin=FALSE)
+            + layer(sp.polygons(water_mask, col="blue", lwd=0.125))
+            + layer(sp.polygons(country_mask, col="black", lwd=0.25)))
+      
+      dev.off()
+    
+  }
+  
 }
 
 # change plots

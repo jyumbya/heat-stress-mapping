@@ -37,19 +37,25 @@ for (rcp in rcpLs){
     
     for (mth in 1:12){
       
+      cat(paste("Processing : ", rcp, period, mth, "\n"))
+      
       # calculate mode
       hsMode <- calc(stack(paste0(rcpDir, "/", gcmList, "/", period, "/", var, "_", mth, ".tif")), fun=categorical.mode)
       writeRaster(hsMode, filename = paste0(oDirUnc, "/mode_", var, "_", mth, ".tif", sep=""), overwrite=TRUE, datatype="INT2S")
       
+      #% agreement per pixel
+      hsMode <- paste0(oDirUnc, "/mode_", var, "_", mth, ".tif", sep="")
+      all.stack<-stack(hsMode, stack(paste0(rcpDir, "/", gcmList, "/", period, "/", var, "_", mth, ".tif")))
+      hsAgreement <- calc(all.stack, fun=agreement.pixel)*100/18
+      writeRaster(hsAgreement, filename = paste0(oDirUnc, "/agreement_", var, "_", mth, ".tif", sep=""), overwrite=TRUE, datatype="INT2S")
+
       # calculate entropy  
       hsEntropy <- calc(stack(paste0(rcpDir, "/", gcmList, "/", period, "/", var, "_", mth, ".tif")), fun=categorical.entropy)
       hsEntropy[is.na(hsEntropy)] <- 0
       writeRaster(hsEntropy, filename = paste0(oDirUnc, "/entropy_", var, "_", mth, ".tif", sep=""), overwrite=TRUE, datatype="INT2S")
       
-      cat(paste("Processed : ", rcp, period, "\n"))
+      
     }
-    
-
     
   }
 
