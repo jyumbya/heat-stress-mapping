@@ -113,6 +113,29 @@ pig.index.change.stats <- function(x){
   
 }
 
+#calculate heat stress zone area
+pig.index.zone.stats <- function(x){
+  
+  #initial 4 classes spread out
+  classes <- 1:4
+  
+  #calculate areas
+  b <- getValues(area(x, weights=FALSE))
+  
+  #aggregate areas by group and sum them up
+  b <- aggregate(b, by=list(getValues(x)), sum, na.rm=T)
+  b <- as.data.frame(b)
+  
+  #change column names
+  names(b) <- c("CLASS","AREA")
+  
+  #bring in classes with NAs
+  b <- merge(data.frame(CLASS = classes), b, by='CLASS', all.x=T)
+  
+  return(b)
+  
+}
+
 ###-----------------------------------------------------###
 ### CATTLE HEAT STRESS ###
 
