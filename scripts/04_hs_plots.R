@@ -229,8 +229,12 @@ for (rcp in rcpLs){
       zvalues <- seq(min(minValue(hCng)), max(maxValue(hCng)), length.out = breaks) # Define limits
       colors <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
     
-      myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"), cex=1.1))
-    
+      #myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"), cex=1.1))
+      myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Alert to Alert","Alert to Danger","Alert to Emergency","Alert to Normal","Danger to Alert",
+                                                                                                "Danger to Danger","Danger to Emergency","Danger to Normal","Emergency to Alert","Emergency to Danger",
+                                                                                                "Emergency to Emergency","Emergency to Normal","Normal to Alert","Normal to Danger","Normal to Emergency","Normal to Normal"), cex=1.25))
+      
+      
       plot <- setZ(hCng, id)
       names(plot) <- id
     

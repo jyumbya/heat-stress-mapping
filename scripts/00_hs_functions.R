@@ -48,33 +48,60 @@ pig.index.change <- function(x,y) {
   for(i in 1:length(x)){
     z[i] <- if(is.na(x[i])|is.na(y[i])){ 
       NA
-    }else if(x[i] == 1 & y[i] == 1){ 1 #HS alert to HS alert
-    }else if(x[i] == 1 & y[i] == 2){ 2 #HS alert to HS danger
-    }else if(x[i] == 1 & y[i] == 3){ 3 #HS alert to HS emergency
-    }else if(x[i] == 1 & y[i] == 4){ 4 #HS alert to No HS
-    }else if(x[i] == 2 & y[i] == 1){ 5 #HS danger to HS alert
-    }else if(x[i] == 2 & y[i] == 2){ 6 #HS danger to HS danger
-    }else if(x[i] == 2 & y[i] == 3){ 7 #HS danger to HS emergency
-    }else if(x[i] == 2 & y[i] == 4){ 8 #HS danger to No HS
-    }else if(x[i] == 3 & y[i] == 1){ 9 #HS emergency to HS alert
-    }else if(x[i] == 3 & y[i] == 2){ 10 #HS emergency to HS danger
-    }else if(x[i] == 3 & y[i] == 3){ 11 #HS emergency to HS emergency
-    }else if(x[i] == 3 & y[i] == 4){ 12 #HS emergency to No HS
-    }else if(x[i] == 4 & y[i] == 1){ 13 #No HS to HS alert
-    }else if(x[i] == 4 & y[i] == 2){ 14 #No HS to HS danger
-    }else if(x[i] == 4 & y[i] == 3){ 15 #No HS to HS emergency
-    }else if(x[i] == 4 & y[i] == 4){ 16} #No HS to No HS
+    }else if(x[i] == 1 & y[i] == 1){ 1 #Alert to Alert
+    }else if(x[i] == 1 & y[i] == 2){ 2 #Alert to Danger
+    }else if(x[i] == 1 & y[i] == 3){ 3 #Alert to Emergency
+    }else if(x[i] == 1 & y[i] == 4){ 4 #Alert to Normal
+    }else if(x[i] == 2 & y[i] == 1){ 5 #Danger to Alert
+    }else if(x[i] == 2 & y[i] == 2){ 6 #Danger to Danger
+    }else if(x[i] == 2 & y[i] == 3){ 7 #Danger to Emergency
+    }else if(x[i] == 2 & y[i] == 4){ 8 #Danger to Normal
+    }else if(x[i] == 3 & y[i] == 1){ 9 #Emergency to Alert
+    }else if(x[i] == 3 & y[i] == 2){ 10 #Emergency to Danger
+    }else if(x[i] == 3 & y[i] == 3){ 11 #Emergency to Emergency
+    }else if(x[i] == 3 & y[i] == 4){ 12 #Emergency to Normal
+    }else if(x[i] == 4 & y[i] == 1){ 13 #Normal to Alert
+    }else if(x[i] == 4 & y[i] == 2){ 14 #Normal to Danger
+    }else if(x[i] == 4 & y[i] == 3){ 15 #Normal to Emergency
+    }else if(x[i] == 4 & y[i] == 4){ 16} #Normal to Normal
     else{NA}
     }
   return(z)
 }
 
+# #pig index change matrix
+# pig.index.change.matrix <- function(x,y){
+#   
+#   #assign colors
+#   cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
+#             "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
+#   cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
+#             "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
+#   
+#   #create matrix
+#   m4<- matrix(1:16, nrow=4, ncol=4, byrow=TRUE)
+#   
+#   rownames(m4) <- c("Alert","Danger","Emergency","Normal") 
+#   colnames(m4) <- c("Alert","Danger","Emergency","Normal") 
+#   
+#   image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Future", ylab="Current")
+#   axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T)
+#   axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
+#   box()
+#   # title(main = "Heat Stress Change Transitions", font.main = 4)
+#   
+# }
+
 #pig index change matrix
 pig.index.change.matrix <- function(x,y){
   
   #assign colors
-  cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
-            "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
+  # cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
+  #           "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
+  cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", 
+            "orangered3", "yellow4", "deepskyblue", "springgreen", 
+            "indianred3", "yellow", "cyan4", "wheat4", 
+            "lightcoral", "khaki", "cyan", "wheat")
   
   #create matrix
   m4<- matrix(1:16, nrow=4, ncol=4, byrow=TRUE)
@@ -82,7 +109,7 @@ pig.index.change.matrix <- function(x,y){
   rownames(m4) <- c("Alert","Danger","Emergency","Normal") 
   colnames(m4) <- c("Alert","Danger","Emergency","Normal") 
   
-  image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Future", ylab="Current")
+  image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Current", ylab="Future")
   axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T)
   axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
   box()
