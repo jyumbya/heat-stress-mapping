@@ -43,7 +43,7 @@ if (!file.exists(paste0(oDirPlt, "/", analysisLs[1], "_", var, "_", livestock, "
   breaks <- 5
   zvalues <- seq(min(minValue(hsC)), max(maxValue(hsC)), length.out = breaks) # define limits
   colors <- c("red", "orange", "yellow", "grey")
-  myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Alert","Danger","Emergency","Normal"), cex=1.25))
+  myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Emergency","Danger","Alert","None"), cex=1.25))
   
   plot <- setZ(hsC, id)
   names(plot) <- id
@@ -87,7 +87,7 @@ for (rcp in rcpLs){
       breaks <- 5
       zvalues <- seq(min(minValue(hsF)), max(maxValue(hsF)), length.out = breaks) # Define limits
       colors <- c("red", "orange", "yellow", "gray")
-      myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Alert","Danger","Emergency","Normal"), cex=1.25))
+      myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Emergency","Danger","Alert","None"), cex=1.25))
     
       plot <- setZ(hsF, id)
       names(plot) <- id
@@ -230,9 +230,10 @@ for (rcp in rcpLs){
       colors <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
     
       #myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"), cex=1.1))
-      myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Alert to Alert","Alert to Danger","Alert to Emergency","Alert to Normal","Danger to Alert",
-                                                                                                "Danger to Danger","Danger to Emergency","Danger to Normal","Emergency to Alert","Emergency to Danger",
-                                                                                                "Emergency to Emergency","Emergency to Normal","Normal to Alert","Normal to Danger","Normal to Emergency","Normal to Normal"), cex=1.25))
+      myColorkey <- list(at=zvalues,height=0.95, width=1.5, labels=list(at=zvalues+0.5,labels=c("Emergency to Emergency","Emergency to Danger","Emergency to Alert","Emergency to None",
+                                                                                                "Danger to Emergency","Danger to Danger","Danger to Alert","Danger to None",
+                                                                                                "Alert to Emergency","Alert to Danger","Alert to Alert","Alert to None",
+                                                                                                "None to Emergency","None to Danger","None to Alert","None to None"), cex=1.25))
       
       
       plot <- setZ(hCng, id)
@@ -268,3 +269,4 @@ tiff(paste0(oDirPlt , "/change_matrix.tif"), width=600, height=600, pointsize=12
 pig.index.change.matrix()
 
 dev.off()
+

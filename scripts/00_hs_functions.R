@@ -48,56 +48,31 @@ pig.index.change <- function(x,y) {
   for(i in 1:length(x)){
     z[i] <- if(is.na(x[i])|is.na(y[i])){ 
       NA
-    }else if(x[i] == 1 & y[i] == 1){ 1 #Alert to Alert
-    }else if(x[i] == 1 & y[i] == 2){ 2 #Alert to Danger
-    }else if(x[i] == 1 & y[i] == 3){ 3 #Alert to Emergency
-    }else if(x[i] == 1 & y[i] == 4){ 4 #Alert to Normal
-    }else if(x[i] == 2 & y[i] == 1){ 5 #Danger to Alert
+    }else if(x[i] == 1 & y[i] == 1){ 1 #Emergency to Emergency
+    }else if(x[i] == 1 & y[i] == 2){ 2 #Emergency to Danger
+    }else if(x[i] == 1 & y[i] == 3){ 3 #Emergency to Alert
+    }else if(x[i] == 1 & y[i] == 4){ 4 #Emergency to None
+    }else if(x[i] == 2 & y[i] == 1){ 5 #Danger to Emergency
     }else if(x[i] == 2 & y[i] == 2){ 6 #Danger to Danger
-    }else if(x[i] == 2 & y[i] == 3){ 7 #Danger to Emergency
-    }else if(x[i] == 2 & y[i] == 4){ 8 #Danger to Normal
-    }else if(x[i] == 3 & y[i] == 1){ 9 #Emergency to Alert
-    }else if(x[i] == 3 & y[i] == 2){ 10 #Emergency to Danger
-    }else if(x[i] == 3 & y[i] == 3){ 11 #Emergency to Emergency
-    }else if(x[i] == 3 & y[i] == 4){ 12 #Emergency to Normal
-    }else if(x[i] == 4 & y[i] == 1){ 13 #Normal to Alert
-    }else if(x[i] == 4 & y[i] == 2){ 14 #Normal to Danger
-    }else if(x[i] == 4 & y[i] == 3){ 15 #Normal to Emergency
-    }else if(x[i] == 4 & y[i] == 4){ 16} #Normal to Normal
+    }else if(x[i] == 2 & y[i] == 3){ 7 #Danger to Alert
+    }else if(x[i] == 2 & y[i] == 4){ 8 #Danger to None
+    }else if(x[i] == 3 & y[i] == 1){ 9 #Alert to Emergency
+    }else if(x[i] == 3 & y[i] == 2){ 10 #Alert to Danger
+    }else if(x[i] == 3 & y[i] == 3){ 11 #Alert to Alert
+    }else if(x[i] == 3 & y[i] == 4){ 12 #Alert to None
+    }else if(x[i] == 4 & y[i] == 1){ 13 #None to Emergency
+    }else if(x[i] == 4 & y[i] == 2){ 14 #None to Danger
+    }else if(x[i] == 4 & y[i] == 3){ 15 #None to Alert
+    }else if(x[i] == 4 & y[i] == 4){ 16} #None to None
     else{NA}
     }
   return(z)
 }
 
-# #pig index change matrix
-# pig.index.change.matrix <- function(x,y){
-#   
-#   #assign colors
-#   cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
-#             "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
-#   cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
-#             "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
-#   
-#   #create matrix
-#   m4<- matrix(1:16, nrow=4, ncol=4, byrow=TRUE)
-#   
-#   rownames(m4) <- c("Alert","Danger","Emergency","Normal") 
-#   colnames(m4) <- c("Alert","Danger","Emergency","Normal") 
-#   
-#   image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Future", ylab="Current")
-#   axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T)
-#   axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
-#   box()
-#   # title(main = "Heat Stress Change Transitions", font.main = 4)
-#   
-# }
-
 #pig index change matrix
 pig.index.change.matrix <- function(x,y){
   
   #assign colors
-  # cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", "orangered3", "yellow4", "deepskyblue", 
-  #           "springgreen", "indianred3", "yellow", "cyan4", "wheat4", "lightcoral", "khaki", "cyan", "wheat")
   cols <- c("red", "yellowgreen", "deepskyblue4", "springgreen4", 
             "orangered3", "yellow4", "deepskyblue", "springgreen", 
             "indianred3", "yellow", "cyan4", "wheat4", 
@@ -106,14 +81,13 @@ pig.index.change.matrix <- function(x,y){
   #create matrix
   m4<- matrix(1:16, nrow=4, ncol=4, byrow=TRUE)
   
-  rownames(m4) <- c("Alert","Danger","Emergency","Normal") 
-  colnames(m4) <- c("Alert","Danger","Emergency","Normal") 
+  rownames(m4) <- c("Emergency","Danger","Alert","None") 
+  colnames(m4) <- c("Emergency","Danger","Alert","None") 
   
   image(1:nrow(m4), 1:ncol(m4), m4, col=cols, axes=FALSE, xlab="Current", ylab="Future")
   axis(1, at = 1:ncol(m4), labels=colnames(m4), tick=T)
   axis(2, at = 1:nrow(m4), labels=rownames(m4), tick=T)
   box()
-  # title(main = "Heat Stress Change Transitions", font.main = 4)
   
 }
 
@@ -175,7 +149,7 @@ cattle.index <- function(x,y){
 }
 
 #classify cattle heat stress index
-#1=critical; 2=emergency; 3=danger; 4=alert; 5=normal
+#1=critical; 2=emergency; 3=danger; 4=alert; 5=None
 cattle.index.class <- function(x){
   ifelse(x<75, 5, 
          ifelse(x >= 75 & x <= 78, 4, 
@@ -196,27 +170,27 @@ cattle.index.change <- function(x,y) {
     }else if(x[i] == 1 & y[i] == 2){ 2 #critical to emergency
     }else if(x[i] == 1 & y[i] == 3){ 3 #critical to danger
     }else if(x[i] == 1 & y[i] == 4){ 4 #critical to alert
-    }else if(x[i] == 1 & y[i] == 5){ 5 #critical to normal
+    }else if(x[i] == 1 & y[i] == 5){ 5 #critical to none
     }else if(x[i] == 2 & y[i] == 1){ 6 #emergency to critical
     }else if(x[i] == 2 & y[i] == 2){ 7 #emergency to emergency
     }else if(x[i] == 2 & y[i] == 3){ 8 #emergency to danger
     }else if(x[i] == 2 & y[i] == 4){ 9 #emergency to alert
-    }else if(x[i] == 2 & y[i] == 5){ 10 #emergency to normal
+    }else if(x[i] == 2 & y[i] == 5){ 10 #emergency to none
     }else if(x[i] == 3 & y[i] == 1){ 11 #danger to critical
     }else if(x[i] == 3 & y[i] == 2){ 12 #danger to emergency
     }else if(x[i] == 3 & y[i] == 3){ 13 #danger to danger
     }else if(x[i] == 3 & y[i] == 4){ 14 #danger to alert
-    }else if(x[i] == 3 & y[i] == 5){ 15 #danger to normal
+    }else if(x[i] == 3 & y[i] == 5){ 15 #danger to none
     }else if(x[i] == 4 & y[i] == 1){ 16 #alert to critical
     }else if(x[i] == 4 & y[i] == 2){ 17 #alert to emergency
     }else if(x[i] == 4 & y[i] == 3){ 18 #alert to danger
     }else if(x[i] == 4 & y[i] == 4){ 19 #alert to alert
-    }else if(x[i] == 4 & y[i] == 5){ 20 #alert to normal
-    }else if(x[i] == 5 & y[i] == 1){ 21 #normal to critical
-    }else if(x[i] == 5 & y[i] == 2){ 22 #normal to emergency
-    }else if(x[i] == 5 & y[i] == 3){ 23 #normal to danger
-    }else if(x[i] == 5 & y[i] == 4){ 24 #normal to alert
-    }else if(x[i] == 5 & y[i] == 5){ 25} #normal to normal
+    }else if(x[i] == 4 & y[i] == 5){ 20 #alert to none
+    }else if(x[i] == 5 & y[i] == 1){ 21 #none to critical
+    }else if(x[i] == 5 & y[i] == 2){ 22 #none to emergency
+    }else if(x[i] == 5 & y[i] == 3){ 23 #none to danger
+    }else if(x[i] == 5 & y[i] == 4){ 24 #none to alert
+    }else if(x[i] == 5 & y[i] == 5){ 25} #none to none
     else{NA}
   }
   return(z)
@@ -286,5 +260,3 @@ categorical.entropy <- function(pixel){
   entropy.pixel <- DescTools::Entropy(x = table(pixel), base = exp(1))/DescTools::Entropy(x = rep(length(pixel)/length(table(pixel)), length(table(pixel))), base = exp(1))
   return(entropy.pixel)
 }
-
-
